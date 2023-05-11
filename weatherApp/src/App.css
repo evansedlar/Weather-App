@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  font-family: 'Poppins', sans-serif;
+
+}
+
+body {
+  background: #111;
+}
+
+.App {
+  max-width: 480px;
+  margin: 20px auto;
+}
+
+.App-inner {
+  background: #fff;
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.main {
+  background: #06012a;
+  position: relative;
+}
+
+.btn-search {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 100%;
+  transition: all 0.2s linear;
+  display: none;
+}
+
+.btn-search:hover {
+  background: rgba(43, 43, 43, 0.352);
+}
+
+.btn-search img {
+  width: 100%;
+  transform: rotate(-45deg);
+}
+
+.btn-search-close img {
+  transform: none;
+}
+
+.temperature {
+  font-size: 50px;
+  color: #434343;
+  font-weight: bold;
+  padding: 40px 20px;
+  background: #7ccfd8;
+}
+
+.location-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+
+}
+
+.location-info .location {
+  flex: 1;
+  background: #ccc;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.location .condition {
+  font-size: 24px;
+}
+
+.location-title {
+  text-transform: uppercase;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.location-info .icon {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.search-bar {
+  left: 0px;
+  right: 0px;
+  z-index: 2;
+  transition: all 0.2s ease-in-out;
+  margin-bottom: 10px;
+  max-width: 480px;
+  position: relative;
+}
+
+.search-bar.active {
+  top: 0px;
+}
+
+.search-input {
+  border-radius: 20px;
+  padding: 20px 20px;
+  border: 1px solid #ccc;
+  display: block;
+  width: 100%;
+  font-size: 20px;
+}
+
+.suggestions ul {
+  margin-top: 5px;
+  list-style: none;
+  background: #fff;
+  border-radius: 20px;
+  max-height: 60vh;
+  overflow: auto;
+  width: 100%;
+  position: absolute;
+}
+
+.suggestions ul li button {
+  display: block;
+  width: 100%;
+  font-size: 15px;
+  padding: 15px 20px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.suggestions ul li button:hover {
+  background: #eee;
+}
+
+.forecastOuter{
+  background: #434343;
+  border-radius: 20px;
+  padding: 12px;
+  padding-top: 0px;
+  margin-top: 15px;
+}
+
+.forecast {
+  background: #fff;
+  border-radius: 10px;
+  overflow-x: scroll;
+  white-space: nowrap;
+  width: 450px;
+  margin: auto;
+
+}
+
+.forecastText {
+  text-align: center;
+  font-weight: 400;
+  color: #fff;
+}
+
+.forecastUL {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  padding: 0;
+  margin: 0;
+}
+
+.forecastUL li {
+  flex: 0 0 auto;
+  list-style: none;
+  margin-right: 21.5px;
+  margin-left: 21.5px;
+  text-align: center;
+}
+
+::-webkit-scrollbar {
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(241, 241, 241, 0);
+  margin: 15px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(71, 71, 206);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

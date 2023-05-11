@@ -1,69 +1,63 @@
 
 import './App.css'
-import TopButtons from './components/TopButtons'
-import Inputs from './components/Inputs'
-import TimeAndLocation from './components/TimeAndLocation'
-import TempAndDetails from './components/TempAndDetails'
-import Forecast from './components/Forecast'
-import getFormattedWeatherData from './services/weatherService'
+import Main from './components/Main'
 import { useEffect, useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-
+import Search from './components/Search'
+import Forecast from './components/Forecast'
+import Daily from './components/Daily'
 
 function App() {
 
-  const [query, setQuery] = useState({ q: 'berlin' })
-  const [units, setUnits] = useState('metric')
-  const [weather, setWeather] = useState(null)
+  const [weather, setCurrentWeather] = useState(false)
+  const [location, setLocation] = useState(false)
+  const [searchBarActive, setSearchBarActive] = useState(false)
+  const [searchedLocation, setSearchedLocation] = useState([])
+
+  
 
   useEffect(() => {
-    const fetchWeather = async () => {
-      const message = query.q ? query.q : 'current location.'
+    let url = `https://api.weatherapi.com/v1/current.json?key=e28bab82914846479dd193900230905&q=`
+    url = `${url}${searchedLocation.length > 0 ? searchedLocation.join(',') : "Paris"}`
+    
+    //ternary operator is like an if/else statement before the ? is the "if" part and the : is the else part
 
-      toast.info('Fetching weather for ' + message)
-
-      await getFormattedWeatherData({ ...query, units }).then(
-        (data) => {
-
-          toast.success(`Successfully fetched weather for ${data.name}, ${data.country}.`)
-
-          setWeather(data)
-        }
-      )
-    }
-
-    fetchWeather()
-  }, [query, units])
-
-  const formatBackground = () => {
-    if (!weather) return 'from-cyan-700 to-blue-700'
-    const threshold = units === 'metric' ? 20 : 60
-    if (weather.temp <= threshold) return 'from-cyan-700 to-blue-700'
-
-    return 'from-yellow-700 to-orange-700'
-  }
+    fetch(url).then(data => data.json()).then(data => {
+      console.log(data)
+      setCurrentWeather(data.current)
+      setLocation(data.location)
+    })
+  }, [searchedLocation])
 
 
   return (
-    <>
-      <div className={`mx-auto max-w-screen-md mt-4 py-5 px-32 bg-gradient-to-br from-cyan-700 to-blue-700 h-fit shadow-xl shadow-gray-400 ${formatBackground()}`}>
-        <TopButtons setQuery={setQuery}/>
-        <Inputs setQuery={setQuery} units={units} setUnits={setUnits}/>
+    <div className="App">
 
-        {weather && (
-          <div>
-            <TimeAndLocation weather={weather}/>
-            <TempAndDetails weather={weather}/>
+      <Search active={searchBarActive} selectedLocation={(lat, lon) => {
+        setSearchedLocation([lat, lon])
+      }} />
 
-            <Forecast title="hourly forecast" items={weather.hourly} />
-            <Forecast title="daily forecast" items={weather.daily}/>
-          </div>
-        )}
-        <ToastContainer autoClose={5000} theme='colored' newestOnTop={true}/>
+      <div className='App-inner'>
+        {
+          weather ?
+            <Main
+              location={location}
+              temperature={weather.temp_f}
+              condition={weather.condition}
+              onSearchButtonClick={() => {
+                setSearchBarActive(true)
+              }}
+            /> : "Loading...."
+        }
       </div>
-    </>
-  )
+
+      <Forecast searchedLocation={searchedLocation}/>
+      <Daily searchedLocation={searchedLocation} />
+
+    </div>
+
+  );
 }
+
+
 
 export default App
