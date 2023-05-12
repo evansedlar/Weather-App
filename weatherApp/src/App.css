@@ -148,7 +148,7 @@ body {
   background: #eee;
 }
 
-.forecastOuter{
+.forecastOuter {
   background: #434343;
   border-radius: 20px;
   padding: 12px;
@@ -203,4 +203,70 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.recentlySearched {
+  background: #434343;
+  border-radius: 20px;
+  padding: 12px;
+  padding-top: 0px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  align-items: center;
+  overflow: hidden;
+}
+
+.recentTitle {
+  text-align: center;
+  font-weight: 400;
+  color: #fff;
+}
+
+.recentUL {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.recentUL li {
+  list-style: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.recentInner {
+  padding: 0;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 767px) {
+  .App-inner {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 15px;
+  }
+
+  .forecast {
+    width: 346px;
+  }
+
+  .forecastOuter {
+    overflow: hidden;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 15px;
+  }
+
+  .recentlySearched {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 15px;
+  }
+
+  .search-bar {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+
 }

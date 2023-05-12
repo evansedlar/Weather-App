@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import Search from './components/Search'
 import Forecast from './components/Forecast'
 import Daily from './components/Daily'
+import RecentSearches from './components/RecentlySearched'
 
 function App() {
 
@@ -17,12 +18,11 @@ function App() {
 
   useEffect(() => {
     let url = `https://api.weatherapi.com/v1/current.json?key=e28bab82914846479dd193900230905&q=`
-    url = `${url}${searchedLocation.length > 0 ? searchedLocation.join(',') : "Paris"}`
+    url = `${url}${searchedLocation.length > 0 ? searchedLocation.join(',') : "Houston"}`
     
     //ternary operator is like an if/else statement before the ? is the "if" part and the : is the else part
 
     fetch(url).then(data => data.json()).then(data => {
-      console.log(data)
       setCurrentWeather(data.current)
       setLocation(data.location)
     })
@@ -35,6 +35,8 @@ function App() {
       <Search active={searchBarActive} selectedLocation={(lat, lon) => {
         setSearchedLocation([lat, lon])
       }} />
+
+      <RecentSearches />
 
       <div className='App-inner'>
         {

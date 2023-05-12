@@ -1,30 +1,43 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import closeIcon from '../assets/closeIcon.png'
 
 function Search({ active, selectedLocation }) {
 
-    const [term, setTerm] = useState("")
+
+    // const searchArray = useSelector((state) => state.recentSearches)
+    const searchTerm = useSelector((state) => state.searchTerm)
+    const dispatch = useDispatch()
     const [suggestions, setSuggestions] = useState([])
 
 
-
     useEffect(() => {
-        if (term !== "") {
-            fetch(`https://api.weatherapi.com/v1/search.json?key=e28bab82914846479dd193900230905&q=${term}`).then(res => res.json()).then(data => {
+        if (searchTerm !== "") {
+            fetch(`https://api.weatherapi.com/v1/search.json?key=e28bab82914846479dd193900230905&q=${searchTerm}`)
+            .then(res => res.json())
+            .then(data => {
                 setSuggestions(data)
             })
         } else {
             setSuggestions([])
         }
-    }, [term])
+    }, [searchTerm])
+
+
+
 
     return (
         <div className={`search-bar ${active ? 'active' : ""}`}>
 
             <input onChange={(e) => {
-                setTerm(e.target.value)
-            }} type="text" className="search-input" placeholder="Search your location..." />
+                dispatch({ type: "UPDATE_SEARCH_TERM", payload: e.target.value })
+            }} 
+            type="text" 
+            className="search-input" 
+            placeholder="Search your location..." 
+            value={searchTerm}
+            />
 
             <button className="btn-search btn-search-close">
                 <img src={closeIcon} alt="Close search" />
@@ -49,14 +62,23 @@ function Search({ active, selectedLocation }) {
                     </ul>
                 </div>
             }
+
         </div>
     )
 }
 
 
 function Suggestion({ id, title, region, onPlaceClick }) {
+
+    const dispatch = useDispatch()
+
+    function handleClick() {
+        dispatch({ type: 'ADD_RECENT_SEARCH', payload: title });
+        onPlaceClick();
+    }
+
     return <li>
-        <button onClick={onPlaceClick}>{title}, <small>{region}</small></button>
+        <button onClick={handleClick}>{title}, <small>{region}</small></button>
     </li>
 }
 

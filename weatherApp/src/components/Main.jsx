@@ -3,7 +3,6 @@ import searchIcon from '../assets/search.svg'
 
 function Main({ condition, temperature, location, onSearchButtonClick }) {
 
-  console.log('Condition', condition)
 
   return <div className='main'>
 

@@ -6,8 +6,6 @@ function Forecast(props) {
     const [hourlyData, setHourlyData] = useState([])
 
 
-
-
     useEffect(() => {
         let url = `https://api.weatherapi.com/v1/forecast.json?key=e28bab82914846479dd193900230905&q=${props.searchedLocation.join(',')}&days=1&aqi=no&alerts=no`
 
@@ -16,7 +14,6 @@ function Forecast(props) {
             .then((data) => setHourlyData(data.forecast.forecastday[0].hour))
     }, [props.searchedLocation])
 
-    console.log(hourlyData)
 
 
     return (
